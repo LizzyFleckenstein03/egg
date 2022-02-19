@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>HAHA YOU ARE AN EGG</title>
+		<style>
+			* {font-size: 30px}
+		</style>
+		<script>
+			addEventListener("DOMContentLoaded", _ => {
+				const elem = document.getElementById("name")
+
+				elem.addEventListener("input", _ => {
+					fetch("http://api.genderize.io?name=" + elem.value)
+						.catch(_ => {document.getElementById("head").innerHTML = "Gefickt!"})
+						.then(res => res.json())
+						.then(data => ({female: 0, male: 1})[data.gender])
+						.catch(_ => undefined)
+						.then(gender => {
+							if (gender === undefined)
+								document.getElementsByName("gender").forEach(elem => {elem.checked = false})
+							else
+								document.getElementById("gender." + (1 - gender)).checked = true
+						})
+				})
+			})
+		</script>
+	</head>
+	<body>
+		<img src="egg.png">
+		<form>
+			<center>
+				<h1 id="head">USE THIS APP TO FIND OUT YOUR TRUE GENDER</h1>
+				<input type="text" placeholder="(legal) first name" id="name">
+				<br><br>
+				<input type="radio" name="gender" value="female" id="gender.0" onclick="return false"><label for="gender.female">Female</label>
+				<br>
+				<input type="radio" name="gender" value="male" id="gender.1" onclick="return false"><label for="gender.male">Male</label>
+			</center>
+		</form>
+	</body>
+</html>
