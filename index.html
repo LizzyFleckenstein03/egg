@@ -11,7 +11,7 @@
 				const elem = document.getElementById("name")
 
 				elem.addEventListener("input", _ => {
-					fetch("http://api.genderize.io?name=" + elem.value)
+					fetch("https://api.genderize.io?name=" + elem.value)
 						.catch(_ => {document.getElementById("head").innerHTML = "Gefickt!"})
 						.then(res => res.json())
 						.then(data => ({female: 0, male: 1})[data.gender])
